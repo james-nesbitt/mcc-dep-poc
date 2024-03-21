@@ -1,13 +1,9 @@
 package product
 
 import (
-	"fmt"
+	"context"
 
-	"github.com/Mirantis/launchpaddependencies/implementation"
-)
-
-const (
-	K0sComponentName = "K0s"
+	"github.com/Mirantis/launchpaddependencies/cluster"
 )
 
 // K0s interface
@@ -16,14 +12,20 @@ type K0s struct {
 }
 
 // Name for the Component
-func (d K0s) Name() string {
-	return K0sComponentName
+func (_ K0s) Name() string {
+	return "K0S"
 }
 
 // Provides labels of dependencies provided by k0s
-func (d K0s) Provides() []string {
+func (_ K0s) Provides() []string {
 	return []string{
-		fmt.Sprintf("%s:%s", RequiresKeyProduct, K0sComponentName),
-		fmt.Sprintf("%s:%s", implementation.RequiresKeyImplementation, implementation.KubernetesComponentName),
+		"product:K0S",
+		"implementation:kubernetes",
 	}
+}
+
+// Validate the cluster Definition
+func (_ K0s) Validate(_ context.Context, c cluster.Cluster) (err error) {
+
+	return nil
 }

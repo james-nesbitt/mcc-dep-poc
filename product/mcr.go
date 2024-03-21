@@ -1,13 +1,9 @@
 package product
 
 import (
-	"fmt"
+	"context"
 
-	"github.com/Mirantis/launchpaddependencies/implementation"
-)
-
-const (
-	MCRComponentName = "MCR"
+	"github.com/Mirantis/launchpaddependencies/cluster"
 )
 
 // MCR interface
@@ -16,15 +12,20 @@ type MCR struct {
 }
 
 // Name for the Component
-func (mcr MCR) Name() string {
-	return MCRComponentName
+func (_ MCR) Name() string {
+	return "MCR"
 }
 
 // Provides labels of dependencies provided by MCR
-func (mcr MCR) Provides() []string {
+func (_ MCR) Provides() []string {
 	return []string{
-		fmt.Sprintf("%s:%s", RequiresKeyProduct, MCRComponentName),
-		fmt.Sprintf("%s:%s", implementation.RequiresKeyImplementation, implementation.DockerComponentName),
-		fmt.Sprintf("%s:%s", implementation.RequiresKeyImplementation, "docker-ee"),
+		"product:MCR",
+		"implementation:docker-swarm",
+		"implementation:docker-host",
 	}
+}
+
+// Validate the cluster Definition
+func (_ MCR) Validate(_ context.Context, c cluster.Cluster) ([]string, error) {
+	return []string{}, nil
 }

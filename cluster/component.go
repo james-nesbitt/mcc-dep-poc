@@ -1,4 +1,6 @@
-package main
+package cluster
+
+import "context"
 
 /**
 * Component
@@ -14,7 +16,7 @@ package main
 *  which may be needed by other components. Interfaces exists to allow
 *  different other components such as products to provide the same
 *  functionality.
-*/
+ */
 
 // Components collection
 type Components []Component
@@ -24,8 +26,11 @@ type Component interface {
 	// Name of the Component, which is used for auditing, but perhaps
 	//   also as the basis for a dependency.
 	Name() string
-	// Provides a string map of labels which this Component provides,
+	// Provides a list of string labels which this Component provides,
 	//   which can be used for auditing, but is focused on simplifying
 	//   some early dependency testing.
 	Provides() []string
+	// Validate that the cluster definition meets the needs of the
+	//   product, and return a list of dependencies
+	Validate(context.Context, Cluster) ([]string, error)
 }

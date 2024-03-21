@@ -3,27 +3,30 @@ package main_test
 import (
 	"testing"
 
-	launchpad "github.com/Mirantis/launchpaddependencies"
+	"github.com/Mirantis/launchpaddependencies/cluster"
 	"github.com/Mirantis/launchpaddependencies/product"
 )
 
-func Cluster_MCRMKEMSR() launchpad.Cluster {
-	return launchpad.Cluster{
-		Hosts: launchpad.Hosts{
-			launchpad.Host{
+func Cluster_MCRMKEMSR() cluster.Cluster {
+	return cluster.Cluster{
+		Hosts: cluster.Hosts{
+			cluster.Host{
+				ID: "boss",
 				Role: "manager",
 				OS:   "Ubuntu",
 			},
-			launchpad.Host{
+			cluster.Host{
+				ID: "worker_1",
 				Role: "worker",
 				OS:   "Ubuntu",
 			},
-			launchpad.Host{
+			cluster.Host{
+				ID: "worker_2",
 				Role: "worker",
 				OS:   "Ubuntu",
 			},
 		},
-		Products: launchpad.Components{
+		Products: cluster.Components{
 			product.MCR{
 				Version: "20.10.15",
 			},
@@ -37,5 +40,9 @@ func Cluster_MCRMKEMSR() launchpad.Cluster {
 	}
 }
 
-func TestDependencyOrder(t *testing.T) {
+// confirm that all cluster component interfaces are good
+func Test_Clean(t *testing.T) {
+
+	Cluster_MCRMKEMSR()
+	
 }
