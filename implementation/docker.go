@@ -1,10 +1,10 @@
-package main
+package implementation
 
 const (
-	DockerComponentName = "Docker"
+	DockerComponentName = "docker"
 )
 
-// Docker interface
+// Docker host implementation
 type Docker struct {
 
 }

@@ -1,7 +1,7 @@
-package main
+package implementation
 
 const (
-	KubernetesComponentName = "Kubernetes"
+	KubernetesComponentName = "kubernetes"
 )
 
 // Kubernetes interface
